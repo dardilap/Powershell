@@ -33,6 +33,6 @@ $Resultado=$csharpProvider.CompileAssemblyFromSource($Parametros,[System.Text.En
 $objClase = $Resultado.CompiledAssembly.CreateInstance("powershellcommandexec.pshexec")
 
 
-return true
+return $objClase
 
 }
