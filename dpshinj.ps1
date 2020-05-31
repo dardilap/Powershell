@@ -4,9 +4,14 @@ param(
 
 [Parameter(Mandatory)]
 
-[string] $strClase 
+[string] $strClase, 
+
+[Parameter(Mandatory)]
+
+[string] $strNameSpace 
 
 )
+
 
 # Creamos un nuevo objeto para refereniar al proveedor c# que nos ayudara a construir la clase que ejecutará el código powershell en memoria
 $csharpProvider = New-Object Microsoft.CSharp.CSharpCodeProvider
@@ -30,8 +35,7 @@ $Parametros.ReferencedAssemblies.Add("C:\Windows\assembly\GAC_MSIL\System.Manage
 
 $Resultado=$csharpProvider.CompileAssemblyFromSource($Parametros,[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($strClase)))
 
-$objClase = $Resultado.CompiledAssembly.CreateInstance("powershellcommandexec.pshexec")
-
+$objClase = $Resultado.CompiledAssembly.CreateInstance($strNameSpace)
 
 return $objClase
 
